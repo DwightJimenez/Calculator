@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculator</title>
+  <link rel="stylesheet" href="calculator.css">
+  
+</head>
+<body>
+
+    <div class="container" id="container">
+        <h1>Calculator</h1>
+        <label for="num1">Enter the first number:</label>
+        <input type="text" id="num1"><br>
+        <label for="num2">Enter the second number:</label>
+        <input type="text" id="num2"><br>
+        <div id="result">
+            Result</div>
+        <button class="bn632-hover bn20" onclick="calculate('+')">Add</button>
+        <button class="bn632-hover bn20" onclick="calculate('-')">Subtract</button>
+        <button class="bn632-hover bn20" onclick="calculate('*')">Multiply</button>
+        <button class="bn632-hover bn20" onclick="calculate('/')">Divide</button>
+  </div>
+  <br><br>
+  
+
+  <script>
+    function calculate(operation) {
+      let num1 = parseInt(document.getElementById("num1").value);
+      let num2 = parseInt(document.getElementById("num2").value);
+
+      let result;
+
+      switch (operation) {
+        case '+':
+          result = num1 + num2;
+          break;
+        case '-':
+          result = num1 - num2;
+          break;
+        case '*':
+          result = num1 * num2;
+          break;
+        case '/':
+          result = num1 / num2;
+          break;
+        default:
+          alert("Invalid operation.");
+          return;
+      }
+
+      document.getElementById("result").innerHTML = "Result: " + result;
+    }
+  </script>
+</body>
+</html>

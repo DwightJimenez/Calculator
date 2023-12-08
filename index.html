@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Modern Login Page | AsmrProg</title>
+</head>
+
+<body>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form id="registrationForm">
+                <h1>Create Account</h1>
+                <div class="social-icons">
+                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your email for registeration</span>
+                <input id="name" type="text" placeholder="Name">
+                <input id="username" type="email" placeholder="Email">
+                <input id="password" type="password" placeholder="Password">
+                <button>Sign Up</button>
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form id="loginForm">
+                <h1>Sign In</h1>
+                <div class="social-icons">
+                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your email password</span>
+                <input id="loginEmail" type="email" placeholder="Email">
+                <input id="loginPassword" type="password" placeholder="Password">
+                <a href="#">Forget Your Password?</a>
+                <button>Sign In</button>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome Back!</h1>
+                    <p>Enter your personal details to use all of site features</p>
+                    <button class="hidden" id="login">Sign In</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Register with your personal details to use all of site features</p>
+                    <button class="hidden" id="register">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import{getDatabase, set, ref}from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyB6z61FtXQjNZGOBuyM9UTrdK4uPzzGaVU",
+          authDomain: "securitydatabase-a48c2.firebaseapp.com",
+          databaseURL: "https://securitydatabase-a48c2-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "securitydatabase-a48c2",
+          storageBucket: "securitydatabase-a48c2.appspot.com",
+          messagingSenderId: "699007169688",
+          appId: "1:699007169688:web:06a587a33a2aeff7d24ced",
+          measurementId: "G-7FVJXMJYT2"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+        const auth = getAuth();
+    
+        let EmailInp = document.getElementById('username');
+        let PasswordInp = document.getElementById('password');
+        let Form = document.getElementById('registrationForm');
+    
+        let RegisterUser = evt => {
+            evt.preventDefault();
+            createUserWithEmailAndPassword(auth, EmailInp.value, PasswordInp.value)
+            .then((credentials)=>{
+                console.log(credentials);
+            })
+            .catch((error)=>{
+                alert(error.message);
+                console.log(error.code);
+                console.log(error.message);
+            })
+        }
+        Form.addEventListener('submit', RegisterUser);
+
+        let LoginEmail = document.getElementById('loginEmail');
+        let LoginPassword = document.getElementById('loginPassword');
+        let loginForm = document.getElementById('loginForm');
+
+        let LoginUser = e => {
+        e.preventDefault();
+        signInWithEmailAndPassword(auth, LoginEmail.value, LoginPassword.value)
+    
+        .then((userCredential) => {
+        const user = userCredential.user;
+        console.log('Logged in:', user);
+        window.location.href = 'calculator.html';
+      // You can redirect the user or perform other actions here
+        })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error('Error:', errorCode, errorMessage);
+      alert(errorMessage);
+    })
+    }
+    loginForm.addEventListener('submit', LoginUser);
+
+      </script>
+
+</body>
+
+</html>
